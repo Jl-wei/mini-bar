@@ -1,0 +1,78 @@
+[
+    {
+        "name": "chatgpt",
+        "model_name_or_path": "chatgpt",
+        "label_columns": ["irrelevant", "feature_request", "problem_report"],
+        "data_column": "data",
+        "output_dir": "./",
+
+        "test_size": 1,
+        "valid_size": 0,
+
+        "data_folder": "../dataset/for_classification",
+        "experiments": [
+            {
+                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
+                                        "Huawei Health.en", "Huawei Health.fr", 
+                                        "Samsung Health.en", "Samsung Health.fr"]
+            }
+        ]
+    },
+    {
+        "name": "guanaco-13b",
+        "model_name_or_path": "timdettmers/guanaco-13b-merged",
+        "label_columns": ["irrelevant", "feature_request", "problem_report"],
+        "data_column": "data",
+        "output_dir": "./",
+
+        "test_size": 1,
+        "valid_size": 0,
+
+        "data_folder": "../dataset/for_classification",
+        "experiments": [
+            {
+                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
+                                        "Huawei Health.en", "Huawei Health.fr", 
+                                        "Samsung Health.en", "Samsung Health.fr"]
+            }
+        ]
+    },
+    {
+        "name": "guanaco-33b",
+        "model_name_or_path": "timdettmers/guanaco-33b-merged",
+        "label_columns": ["irrelevant", "feature_request", "problem_report"],
+        "data_column": "data",
+        "output_dir": "./",
+
+        "test_size": 1,
+        "valid_size": 0,
+
+        "data_folder": "../dataset/for_classification",
+        "experiments": [
+            {
+                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
+                                        "Huawei Health.en", "Huawei Health.fr", 
+                                        "Samsung Health.en", "Samsung Health.fr"]
+            }
+        ]
+    },
+    {
+        "name": "guanaco-65b",
+        "model_name_or_path": "timdettmers/guanaco-65b-merged",
+        "label_columns": ["irrelevant", "feature_request", "problem_report"],
+        "data_column": "data",
+        "output_dir": "./",
+
+        "test_size": 1,
+        "valid_size": 0,
+
+        "data_folder": "../dataset/for_classification",
+        "experiments": [
+            {
+                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
+                                        "Huawei Health.en", "Huawei Health.fr", 
+                                        "Samsung Health.en", "Samsung Health.fr"]
+            }
+        ]
+    }
+]

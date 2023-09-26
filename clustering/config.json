@@ -1,0 +1,51 @@
+{
+    "experiment_name": "multi-hdbscan",
+    "data_column": "20_dim_embedding",
+    "plot_data_column": "2_dim_embedding",
+
+    "model": "HDBSCAN",
+    "args": {
+        "cluster_selection_method": "leaf",
+        "metric": "euclidean",
+        "min_cluster_size": 5,
+        "min_samples": 1
+    },
+    "lang": "",
+    "experiments": [
+        {
+            "name": "hdbscan-instructor",
+            "data_dir": "../dataset/for_clustering/embedded/instructor",
+            "embedding": "hkunlp/instructor-xl"
+        },
+        {
+            "name": "hdbscan-multilingual-e5",
+            "data_dir": "../dataset/for_clustering/embedded/multilingual-e5",
+            "embedding": "intfloat/multilingual-e5-large"
+        },
+        {
+            "name": "hdbscan-multilingual_mpnet",
+            "data_dir": "../dataset/for_clustering/embedded/multilingual_mpnet",
+            "embedding": "paraphrase-multilingual-mpnet-base-v2"
+        },
+        {
+            "name": "hdbscan-multilingual_minilm",
+            "data_dir": "../dataset/for_clustering/embedded/multilingual_minilm",
+            "embedding": "paraphrase-multilingual-MiniLM-L12-v2"
+        },
+        {
+            "name": "hdbscan-multilingual_use",
+            "data_dir": "../dataset/for_clustering/embedded/multilingual_use",
+            "embedding": "distiluse-base-multilingual-cased-v1"
+        },
+        {
+            "name": "hdbscan-tfidf",
+            "data_dir": "../dataset/for_clustering/embedded/tfidf",
+            "embedding": "tfidf"
+        },
+        {
+            "name": "hdbscan-bow",
+            "data_dir": "../dataset/for_clustering/embedded/bow",
+            "embedding": "bow"
+        }
+    ]
+}
