@@ -7,11 +7,13 @@ If you find our work useful, please cite our paper:
 
 ```bibtex
 @INPROCEEDINGS{Wei2023ICTAI,
-  author = {Jialiang Wei and Anne-Lise Courbis and Thomas Lambolais and Binbin Xu and Pierre Louis Bernard and Gérard Dray},
-  title = {Zero-shot Bilingual App Reviews Mining with
-Large Language Models},
-  booktitle = {35th IEEE International Conference on Tools with Artificial Intelligence (ICTAI)},
-  year = {2023}
+  author={Wei, Jialiang and Courbis, Anne-Lise and Lambolais, Thomas and Xu, Binbin and Bernard, Pierre Louis and Dray, Gérard},
+  booktitle={2023 IEEE 35th International Conference on Tools with Artificial Intelligence (ICTAI)}, 
+  title={Zero-shot Bilingual App Reviews Mining with Large Language Models}, 
+  year={2023},
+  pages={898-904},
+  doi={10.1109/ICTAI59109.2023.00135},
+  arxiv={arXiv:2311.03058}
 }
 ```
 
