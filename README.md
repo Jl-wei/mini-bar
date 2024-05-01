@@ -1,5 +1,7 @@
 # Mini-BAR
 
+[![DOI](https://zenodo.org/badge/DOI/10.1109/ICTAI59109.2023.00135.svg)](https://doi.org/10.1109/ICTAI59109.2023.00135)
+
 Mini-BAR is a tool for the mining of bilingual app reviews.
 ![image](./overview.png)
 
