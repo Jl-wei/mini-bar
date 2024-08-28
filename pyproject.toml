@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "mini-bar"
+version = "0.1.0"
+description = ""
+authors = ["Jialiang WEI <jialiang.wei@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.11"
+torch = "^2.4.0"
+pytorch-lightning = "^2.4.0"
+transformers = "^4.44.2"
+pandas = "^2.2.2"
+scikit-learn = "^1.5.1"
+langchain = "^0.2.15"
+langchain-openai = "^0.1.23"
+langchain-community = "^0.2.13"
+spacy = "^3.7.6"
+nltk = "^3.9.1"
+flair = "^0.14.0"
+umap-learn = "^0.5.6"
+hdbscan = "^0.8.38.post1"
+matplotlib = "^3.9.2"
+sentence-transformers = "^3.0.1"
+lingua-language-detector = "^2.0.2"
+jinja2 = "^3.1.4"
+instructorembedding = "^1.0.1"
+tensorboard = "^2.17.1"
+bitsandbytes = "^0.43.3"
+peft = "^0.12.0"
+accelerate = "^0.33.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

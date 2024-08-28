@@ -51,8 +51,7 @@ def train(data_module, train_df, name, config):
 
     trainer = pl.Trainer(
         logger=logger,
-        checkpoint_callback=checkpoint_callback,
-        callbacks=[early_stopping_callback],
+        callbacks=[early_stopping_callback, checkpoint_callback],
         max_epochs=config["n_epochs"],
         accelerator="gpu"
         # gpus=1,
