@@ -45,7 +45,7 @@ The sum of each category does not equal the total of reviews, as some reviews ha
 
 Create a new conda env 
 ```
-conda create --name mini-bar python=3.9
+conda create --name mini-bar python=3.11
 ``````
 
 Activate the conda env 
@@ -53,9 +53,11 @@ Activate the conda env
 conda activate mini-bar
 ```
 
-Install the required libs
+Install `poetry` (https://python-poetry.org/docs/)
+
+Install dependencies
 ```
-pip install -r requirements.txt
+poetry install
 ```
 
 Copy your OpenAI key (https://platform.openai.com/account/api-keys) to the environment variable `OPENAI_API_KEY`
@@ -68,21 +70,6 @@ export OPENAI_API_KEY='your openai key'
 ### Classification
 
 #### Pre-trained models and Machine Learning models
-
-Create a new conda env, this env is only used for the experiments of classification
-```
-conda create --name mini-bar-cls python=3.9
-```
-
-Activate the conda env 
-```
-conda activate mini-bar-cls
-```
-
-Install the required libs 
-```
-pip install -r requirements-cls.txt
-```
 
 Change the current working directory
 ```
@@ -103,11 +90,6 @@ The precision, recall and f1 are saved in the log file in `classification/lightn
 
 #### Large language models
 
-Activate the conda env 
-```
-conda activate mini-bar
-```
-
 Test with large language models
 ```
 nohup python llm.py &
@@ -119,11 +101,6 @@ python llm_analyse.py --csv_path csv_file_path --model "model name (chatgpt or g
 ```
 
 ### Clustering
-
-Activate the conda env 
-```
-conda activate mini-bar
-```
 
 Change the current working directory by 
 ```
@@ -147,22 +124,12 @@ python evaluate.py --name "multi-hdbscan" --length 1 --scale 10
 
 ### Summarization
 
-Activate the conda env 
-```
-conda activate mini-bar
-```
-
 Summarize the reviews
 ```
 python summarizer.py
 ```
 
 ## Usage
-
-Activate the conda env 
-```
-conda activate mini-bar
-```
 
 Change the current working directory 
 ```
