@@ -36,7 +36,10 @@ class StopOnTokens(StoppingCriteria):
 class SummarizerModel:
     def __init__(self, model_name):
         self.model_name = model_name
-        openai.api_key = os.environ['OPENAI_API_KEY']
+        self.openai_client = openai.OpenAI(
+            # This is the default and can be omitted
+            api_key=os.environ.get("OPENAI_API_KEY"),
+        )
         if model_name == 'chatgpt':
             self.tokenizer = OpenAIGPTTokenizer.from_pretrained("openai-gpt")
         else:
@@ -58,25 +61,15 @@ class SummarizerModel:
 
     def generate(self, prompt):
         if self.model_name == 'chatgpt':
-            condition = True
-            while condition:
-                try:
-                    response = openai.ChatCompletion.create(
-                        model="gpt-4o-mini",
-                        messages=[
-                                {"role": "system", "content": "You are a helpful assistant that summarizes app reviews."},
-                                {"role": "user", "content": prompt}
-                            ]
-                        )
-                    condition = False
-                except (openai.error.ServiceUnavailableError, 
-                        openai.error.RateLimitError, 
-                        ConnectionError, 
-                        socket.timeout) as e:
-                    print(e)
-                    time.sleep(30)
+            response = self.openai_client.with_options(max_retries=5).chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                        {"role": "system", "content": "You are a helpful assistant that summarizes app reviews."},
+                        {"role": "user", "content": prompt}
+                    ]
+                )
 
-            return response['choices'][0]['message']['content']
+            return response.choices[0].message.content
         else:
             formatted_prompt = "You are a helpful assistant that summarizes app reviews."
             formatted_prompt += f"### Human: {prompt} ### Assistant:" 
@@ -131,7 +124,7 @@ class ExtractiveSummarizer:
 class AbstractiveSummarizer:
     def __init__(self, model_name='chatgpt'):
         self.model = SummarizerModel(model_name=model_name)
-        self.max_length = 2000
+        self.max_length = 12000
 
     def summarize(self, reviews):
         reviews = list(reviews)

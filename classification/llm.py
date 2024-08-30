@@ -4,13 +4,13 @@ import logging
 import torch
 
 from langchain.chains import LLMChain
-from langchain.chat_models import ChatOpenAI
 from langchain_core.prompts import (
     PromptTemplate,
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
 )
-from langchain.llms import HuggingFacePipeline
+from langchain_openai import ChatOpenAI
+from langchain_community.llms import HuggingFacePipeline
 
 from transformers import (
     AutoModelForCausalLM, 

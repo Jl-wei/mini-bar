@@ -87,9 +87,9 @@ class HardClustering:
                 ).tolist())
         else:
             if "/" in self.embedding:
-                embedder = SentenceTransformer(self.embedding)
+                embedder = SentenceTransformer(self.embedding, trust_remote_code=True)
             else:
-                embedder = SentenceTransformer('sentence-transformers/{}'.format(self.embedding))
+                embedder = SentenceTransformer('sentence-transformers/{}'.format(self.embedding), trust_remote_code=True)
             df_embeddings = np.array(data_serie.apply(lambda x: embedder.encode(str(x))).tolist())
 
         return df_embeddings

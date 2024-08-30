@@ -20,7 +20,13 @@ class MiniBAR:
     def analyze(self, df, data_column):
         self.init_report(df)
 
-        fea_df, pro_df, irr_df = self.classify(df[[data_column, 'score', 'thumbsUpCount']])
+        if "result" in df:
+            irr_df = df[df['result'].str.contains('irrelevant', case=False,)]
+            fea_df = df[df['result'].str.contains('feature request', case=False)]
+            pro_df = df[df['result'].str.contains('problem report', case=False)]
+        else:
+            fea_df, pro_df, irr_df = self.classify(df[[data_column, 'score', 'thumbsUpCount']])
+
         self.report['feature_request']['count'] = fea_df.shape[0]
         self.report['problem_report']['count'] = pro_df.shape[0]
         self.report['irrelevant']['count'] = irr_df.shape[0]
@@ -28,7 +34,6 @@ class MiniBAR:
         fea_df['clusters'] = self.cluster(fea_df[data_column])
         pro_df['clusters'] = self.cluster(pro_df[data_column])
 
-        print("=====================Summarizing=====================")
         for category, df in [('feature_request', fea_df), ('problem_report', pro_df)]:
             clusters_weight = self.clusters_importance(df)
             for i in tqdm(range(0, count_cluster_num(df))):
@@ -46,8 +51,13 @@ class MiniBAR:
         save_json(f"./reports/{self.report['app']}.json", self.report)
 
     def init_report(self, df):
+        if "app" in df:
+            app = df['app'].iloc[0]
+        else:
+            app = "app"
+
         self.report = {
-            'app': df['app'].iloc[0],
+            'app': app,
             'count': df.shape[0],
             'problem_report': {
                 'count': 0,
@@ -67,10 +77,11 @@ class MiniBAR:
         return self.classifier.classify(ds)
 
     def cluster(self, ds):
-        print("=====================Clustering=====================")
+        print("=====================Clustering======================")
         return self.clustering.clustering(ds)
 
     def summarize(self, ds):
+        print("=====================Summarizing=====================")
         return self.summarizer.summarize(ds)
 
     def clusters_importance(self, df):
@@ -86,7 +97,7 @@ class MiniBAR:
         return clusters_weight
     
     def sort_reviews(self, ds, summary):
-        model = SentenceTransformer("paraphrase-multilingual-mpnet-base-v2")
+        model = SentenceTransformer("paraphrase-multilingual-mpnet-base-v2", trust_remote_code=True)
 
         reviews_embeddings = model.encode(ds.values.astype("str"), convert_to_tensor=True)
         summary_embeddings = model.encode([summary], convert_to_tensor=True)
