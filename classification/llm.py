@@ -1,20 +1,15 @@
-import openai
-import pandas as pd
 import numpy as np
 import os
-import random
 import logging
 import torch
 
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
-from langchain.prompts.chat import (
+from langchain_core.prompts import (
     PromptTemplate,
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
 )
-from langchain.callbacks.manager import CallbackManagerForLLMRun
-from langchain.llms.base import LLM
 from langchain.llms import HuggingFacePipeline
 
 from transformers import (
@@ -23,7 +18,6 @@ from transformers import (
     BitsAndBytesConfig, 
     pipeline
 )
-from typing import Any, List, Mapping, Optional
 from lingua import LanguageDetectorBuilder
 from tqdm import tqdm
 from imp import reload
@@ -77,7 +71,7 @@ def guanaco_chain(model_name):
     return LLMChain(llm=llm, prompt=prompt)
 
 def chatgpt_chain():
-    chat = ChatOpenAI(temperature=0)
+    chat = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
     template = '''
     Classify the following {lang} app review into problem report, feature request or irrelevant. Be concise.
     ```

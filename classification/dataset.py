@@ -45,5 +45,5 @@ class AppReviewDataset(Dataset):
       comment_text=comment_text,
       input_ids=encoding["input_ids"].flatten(),
       attention_mask=encoding["attention_mask"].flatten(),
-      labels=torch.FloatTensor(labels)
+      labels=torch.FloatTensor(labels.astype(float).values)
     )

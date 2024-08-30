@@ -1,52 +1,12 @@
 [
     {
-        "name": "xlm-roberta",
-        "model_name_or_path": "xlm-roberta-base",
-        "label_columns": ["irrelevant", "feature_request", "problem_report"],
-        "data_column": "data",
-        "output_dir": "./",
-
-        "max_token_count": 512,
-        "threshold": 0.5,
-
-        "test_size": 0.2,
-        "valid_size": 0.2,
-
-        "number_runs": 10,
-        "batch_size": 12,
-        "n_epochs": 3,
-
-        "data_folder": "../dataset/for_classification",
-        "experiments": [
-            {
-                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
-                                        "Huawei Health.en", "Huawei Health.fr", 
-                                        "Samsung Health.en", "Samsung Health.fr"]
-            },
-            {
-                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
-                                        "Huawei Health.en", "Huawei Health.fr"],
-                "another_test_df": ["Samsung Health.en", "Samsung Health.fr"]
-            },
-            {
-                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
-                                        "Samsung Health.en", "Samsung Health.fr"],
-                "another_test_df": ["Huawei Health.en", "Huawei Health.fr"]
-            },
-            {
-                "train_and_test_files": ["Huawei Health.en", "Huawei Health.fr", 
-                                        "Samsung Health.en", "Samsung Health.fr"],
-                "another_test_df": ["Garmin Connect.en", "Garmin Connect.fr"]
-            }
-        ]
-    },
-    {
         "name": "bert",
         "model_name_or_path": "bert-base-uncased",
         "label_columns": ["irrelevant", "feature_request", "problem_report"],
         "data_column": "data",
         "output_dir": "./",
-    
+        "save_checkpoints": false,
+
         "max_token_count": 512,
         "threshold": 0.5,
     
@@ -87,6 +47,7 @@
         "label_columns": ["irrelevant", "feature_request", "problem_report"],
         "data_column": "data",
         "output_dir": "./",
+        "save_checkpoints": false,
 
         "max_token_count": 512,
         "threshold": 0.5,
@@ -96,6 +57,48 @@
 
         "number_runs": 10,
         "batch_size": 16,
+        "n_epochs": 3,
+
+        "data_folder": "../dataset/for_classification",
+        "experiments": [
+            {
+                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
+                                        "Huawei Health.en", "Huawei Health.fr", 
+                                        "Samsung Health.en", "Samsung Health.fr"]
+            },
+            {
+                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
+                                        "Huawei Health.en", "Huawei Health.fr"],
+                "another_test_df": ["Samsung Health.en", "Samsung Health.fr"]
+            },
+            {
+                "train_and_test_files": ["Garmin Connect.en", "Garmin Connect.fr",
+                                        "Samsung Health.en", "Samsung Health.fr"],
+                "another_test_df": ["Huawei Health.en", "Huawei Health.fr"]
+            },
+            {
+                "train_and_test_files": ["Huawei Health.en", "Huawei Health.fr", 
+                                        "Samsung Health.en", "Samsung Health.fr"],
+                "another_test_df": ["Garmin Connect.en", "Garmin Connect.fr"]
+            }
+        ]
+    },
+    {
+        "name": "xlm-roberta",
+        "model_name_or_path": "xlm-roberta-base",
+        "label_columns": ["irrelevant", "feature_request", "problem_report"],
+        "data_column": "data",
+        "output_dir": "./",
+        "save_checkpoints": false,
+
+        "max_token_count": 512,
+        "threshold": 0.5,
+
+        "test_size": 0.2,
+        "valid_size": 0.2,
+
+        "number_runs": 10,
+        "batch_size": 12,
         "n_epochs": 3,
 
         "data_folder": "../dataset/for_classification",

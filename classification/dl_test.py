@@ -1,15 +1,27 @@
-import numpy as np
+import os
 import torch
-import logging
-
+import numpy as np
 from tqdm.auto import tqdm
 from sklearn.metrics import classification_report
+
+from imp import reload
+import logging
 
 from dataset import AppReviewDataset
 
 import sys; sys.path.append("..")
 
 def test(trained_model, test_df, tokenizer, config):
+    reload(logging)
+    
+    logging.basicConfig(
+        filename=os.path.join(config['log_path'], "log.log"),
+        filemode="w",
+        format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
+        datefmt="%H:%M:%S",
+        level=logging.INFO,
+    )
+    
     for lang in test_df['ori_lang'].unique():
         df = test_df.loc[test_df['ori_lang']==lang]
         logging.info(f"App: {test_df['app'].unique()}")

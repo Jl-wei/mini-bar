@@ -1,12 +1,10 @@
 import torch
-import logging
 import gc
 import os
 import random
 import shutil
 from pathlib import Path
 
-from imp import reload
 
 import pandas as pd
 import pytorch_lightning as pl
@@ -39,7 +37,7 @@ def train(data_module, train_df, name, config):
 
     # Train model
     checkpoint_callback = ModelCheckpoint(
-        dirpath=os.path.join(config["output_dir"], "checkpoints"),
+        dirpath=os.path.join(config["log_path"], "checkpoints"),
         filename=name,
         verbose=True,
         save_top_k=1,
@@ -51,7 +49,7 @@ def train(data_module, train_df, name, config):
 
     trainer = pl.Trainer(
         logger=logger,
-        callbacks=[early_stopping_callback, checkpoint_callback],
+        callbacks=[checkpoint_callback, early_stopping_callback],
         max_epochs=config["n_epochs"],
         accelerator="gpu"
         # gpus=1,
@@ -70,22 +68,14 @@ def train(data_module, train_df, name, config):
     return trained_model
     
 def main(name, config, train_df, val_df, test_df, another_test_df = None):
-    reload(logging)
 
     log_path = os.path.join(config["output_dir"], "lightning_logs", name)
+    config['log_path'] = log_path
     Path(log_path).mkdir(parents=True, exist_ok=True)
     train_df.to_csv(os.path.join(log_path, "train.csv"), index=False)
     val_df.to_csv(os.path.join(log_path, "valid.csv"), index=False)
     test_df.to_csv(os.path.join(log_path, "test.csv"), index=False)
     save_json(os.path.join(log_path, "config.json"), config)
-
-    logging.basicConfig(
-        filename=os.path.join(log_path, "log.log"),
-        filemode="w",
-        format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
-        datefmt="%H:%M:%S",
-        level=logging.INFO,
-    )
 
     tokenizer = AutoTokenizer.from_pretrained(config['model_name_or_path'])
 
@@ -108,7 +98,7 @@ def main(name, config, train_df, val_df, test_df, another_test_df = None):
         test(trained_model, another_test_df, tokenizer, config)
 
     # Delete the checkpoints to save disk space
-    if not config.get("model_for_application"):
+    if not config.get("save_checkpoints"):
         shutil.rmtree(os.path.join(log_path, "checkpoints"))
 
     del tokenizer
@@ -133,7 +123,7 @@ if __name__ == '__main__':
 
                 train_df, val_df, test_df, another_test_df = utilities.get_train_dfs_from_config(current_config)
 
-                if config.get("model_for_application"):
+                if config.get("save_checkpoints"):
                     train_df=val_df=test_df= pd.concat([train_df, val_df, test_df], ignore_index=True)
 
                 name = utilities.generate_model_name(current_config)
