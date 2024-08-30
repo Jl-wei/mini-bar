@@ -1290,15 +1290,19 @@ files = [
 ]
 
 [[package]]
-name = "instructorembedding"
-version = "1.0.1"
+name = "InstructorEmbedding"
+version = "1.0.2"
 description = "Text embedding tool"
 optional = false
 python-versions = "*"
-files = [
-    {file = "InstructorEmbedding-1.0.1-py2.py3-none-any.whl", hash = "sha256:c8d0c11d0bab3ede023104e1f3de6a3471bf71208cc272d1ef72bae771e7d1a3"},
-    {file = "InstructorEmbedding-1.0.1.tar.gz", hash = "sha256:886495ddd561bad57e8e7d5e8ee44c4243b1d80b538a25d32d37350f6082ee62"},
-]
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "git@github.com:xlang-ai/instructor-embedding.git"
+reference = "HEAD"
+resolved_reference = "853cedf5a11a4a625fb721d0796451bf8d59d5af"
 
 [[package]]
 name = "intervaltree"
@@ -5232,4 +5236,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "e69b776e6be629fc4b1c24620f19f2452cd0c9eee31775d6473f1dc2194aa46e"
+content-hash = "43610c48b82d3582229c39d53d0a5d7882a0b8f09626cf5d7164be851db8dc6e"

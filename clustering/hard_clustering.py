@@ -22,7 +22,8 @@ class HardClustering:
             self.embedding = config["embedding"]
             self.model = config["model"]
         else:
-            self.embedding = "instructor"
+            # self.embedding = "instructor"
+            self.embedding = "Alibaba-NLP/gte-large-en-v1.5"
             self.model = "HDBSCAN"
 
     def clustering(self, ds, plot_clusters=False, fig_name='fig', ds_embeded=False):
@@ -73,17 +74,22 @@ class HardClustering:
         elif self.embedding == 'tfidf':
             vectorizer = TfidfVectorizer(max_df=0.5, min_df=3, stop_words=list(fr_stop)+list(en_stop))
             df_embeddings = vectorizer.fit_transform(data_serie).toarray()
-        elif self.embedding.startswith('instructor'):
-            sentences = list(map(lambda x: ["Represent the app user review for clustering: ", x], data_serie.to_list()))
-            embedder = INSTRUCTOR('hkunlp/instructor-xl')
-            df_embeddings = embedder.encode(sentences)
+        # # Remove INSTRUCTOR due to dependency issue
+        # # https://github.com/xlang-ai/instructor-embedding/issues/119
+        # elif self.embedding.startswith('instructor'):
+        #     sentences = list(map(lambda x: ["Represent the app user review for clustering: ", x], data_serie.to_list()))
+        #     embedder = INSTRUCTOR('hkunlp/instructor-xl')
+        #     df_embeddings = embedder.encode(sentences)
         elif 'e5' in self.embedding:
             embedder = TransformerDocumentEmbeddings('intfloat/multilingual-e5-large')
             df_embeddings = np.array(data_serie.apply(
                     lambda x: embedder.embed(Sentence("query: " + str(x)))[0].embedding.detach().cpu().numpy()
                 ).tolist())
         else:
-            embedder = SentenceTransformer('sentence-transformers/{}'.format(self.embedding))
+            if "/" in self.embedding:
+                embedder = SentenceTransformer(self.embedding)
+            else:
+                embedder = SentenceTransformer('sentence-transformers/{}'.format(self.embedding))
             df_embeddings = np.array(data_serie.apply(lambda x: embedder.encode(str(x))).tolist())
 
         return df_embeddings

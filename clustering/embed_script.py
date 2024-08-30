@@ -49,10 +49,10 @@ if __name__ == "__main__":
             "name": "labse",
             "embedding": "LaBSE"
         },
-        {
-            "name": "instructor",
-            "embedding": "instructor-xl"
-        },
+        # {
+        #     "name": "instructor",
+        #     "embedding": "instructor-xl"
+        # },
         {
             "name": "multilingual-e5",
             "embedding": "multilingual-e5-large"

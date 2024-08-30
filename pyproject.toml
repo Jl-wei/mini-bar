@@ -24,11 +24,11 @@ matplotlib = "^3.9.2"
 sentence-transformers = "^3.0.1"
 lingua-language-detector = "^2.0.2"
 jinja2 = "^3.1.4"
-instructorembedding = "^1.0.1"
 tensorboard = "^2.17.1"
 bitsandbytes = "^0.43.3"
 peft = "^0.12.0"
 accelerate = "^0.33.0"
+instructorembedding = {git = "git@github.com:xlang-ai/instructor-embedding.git"}
 
 
 [build-system]
